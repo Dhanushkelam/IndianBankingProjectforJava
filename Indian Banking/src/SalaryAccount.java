@@ -2,6 +2,9 @@
 public class SalaryAccount extends Account{
 	String empId;
 	String companyName;
+	
+	//Constructor
+
 	public SalaryAccount(String accountNumber, double initialDeposit,String companyName,String empId)
     {
         super(accountNumber,initialDeposit);

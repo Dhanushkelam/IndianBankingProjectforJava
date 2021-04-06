@@ -1,5 +1,8 @@
 
 public class SavingsProAccount extends Account{
+	
+	//Constructor
+
 	public SavingsProAccount(String accountNumber, double initialDeposit)
     {
         super(accountNumber,initialDeposit);

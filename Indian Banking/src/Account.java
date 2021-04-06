@@ -1,15 +1,21 @@
 
+//Account Class
+//This class consists of account details
 public class Account {
-	String accountNo;
+	String accountNo ="";
 	double currentBalance = 0.0;
 	double minBalance = 0.0;
 	double maxDeposit = 0.0;
 	double maxWithdrawal = 0.0;
 	String type= "";
+	//Constructor method
 	public Account(String accountNumber,double initialDeposit) {
 		this.accountNo = accountNumber;
 		this.currentBalance = initialDeposit;
 	}
+	
+	//Method to deposit money
+	
 	public boolean deposit(double amount) {
 		if (amount <= this.maxDeposit) {
             this.currentBalance += amount;
@@ -22,6 +28,9 @@ public class Account {
             return false;
         }
 	}
+	
+	//Method to withdraw money
+	
 	public boolean withDraw(double amount) {		
 		 if (amount <= currentBalance){
 	            if (amount <= this.maxWithdrawal){
@@ -39,8 +48,12 @@ public class Account {
                 return false;
 	        }
 	}
+	
+	
 	public String writeAccount() {
 		return this.type+ ","+this.accountNo+","+this.currentBalance;
 	}
+	
+	
 
 }

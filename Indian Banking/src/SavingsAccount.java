@@ -1,5 +1,6 @@
 
 public class SavingsAccount extends Account {
+	//Constructor
 	public SavingsAccount(String accountNumber, double initialDeposit)
     {
         super(accountNumber,initialDeposit);
@@ -8,5 +9,6 @@ public class SavingsAccount extends Account {
         this.maxWithdrawal = 100000.0;
         this.type = "Savings Account";
     }
+	
 
 }
