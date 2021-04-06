@@ -221,6 +221,7 @@ public class MainMenu {
 	            editdetails(cus);
 	            break;
 	        case 4:
+	        	//Logging out
 	        	System.out.println("\nLogging Out....\nThank you for Banking with Us\n");
 	        	break;
 	        default:
