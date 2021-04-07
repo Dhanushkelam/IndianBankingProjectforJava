@@ -49,11 +49,5 @@ public class Account {
 	        }
 	}
 	
-	
-	public String writeAccount() {
-		return this.type+ ","+this.accountNo+","+this.currentBalance;
-	}
-	
-	
 
 }

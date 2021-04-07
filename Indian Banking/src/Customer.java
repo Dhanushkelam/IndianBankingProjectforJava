@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -15,7 +16,7 @@ public class Customer {
 	 String city;
 	 String panNumber;
 	 String aadharNumber;
-	 //Account account;
+	 
 	 SavingsAccount account1;
 	 SavingsProAccount account2;
 	 SalaryAccount account3;
@@ -187,7 +188,6 @@ public class Customer {
                 return null;
             }
         default:
-            System.out.println("**Please Enter Correct Account type to Proceed**");
             return null;
 		}
 	}
@@ -283,19 +283,52 @@ public class Customer {
 	//Pays bills method
 	
 	public boolean paybills(int from) {
-		System.out.println("\nChoose anyone from below:\n 1:Electricity Bill\n 2.BroadBand Bill \n 3.PostPaid Bill\n 4.Credit Bill\n 5.DTH Bill");
-        switch(sc.nextInt()) {
+		int s=0;
+		boolean flag;
+		do {
+			Scanner input = new Scanner(System.in);
+			try {
+				System.out.println("\nChoose anyone from below:\n 1:Electricity Bill\n 2.BroadBand Bill \n 3.PostPaid Bill\n 4.Credit Bill\n 5.DTH Bill");
+				s = input.nextInt();
+				flag = true;
+			}
+			catch(InputMismatchException e){
+				System.out.println("Wrong input,Please enter only numbers");
+				flag = false;
+			}
+			
+		}while(!flag);
+		
+        Random r = new Random();
+        int low =0;
+        int high = 100;
+        int result = 0;
+        int ans = 0;
+		switch(s) {
         case 1:
         	System.out.println("Please enter Electricity Bill Id");
             String eBill = sc.next();
-            Random r = new Random();
-        	int low = 100;
-        	int high = 1000;
-        	int result = r.nextInt(high-low) + low;
+            
+        	low = 100;
+        	high = 1000;
+        	result = r.nextInt(high-low) + low;
             double bill = Double.valueOf(result);
             System.out.println("Your Electricity Bill is : "+bill);
-            System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
-            int ans = sc.nextInt();
+            
+            do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
+    	            ans = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+            
             if (ans == 1){
                 Account account = getAccount(from);
                 if (account != null) {
@@ -315,15 +348,27 @@ public class Customer {
         case 2:
         	System.out.println("Please enter Broadband Bill Id");
         	String bBill = sc.next();
-        	Random b = new Random();
-        	int low1 = 500;
-        	int high1 = 1000;
-        	int result1 = b.nextInt(high1-low1) + low1;
-            double bill1 = Double.valueOf(result1);
+        	
+        	low = 500;
+        	high= 1000;
+        	result = r.nextInt(high-low) + low;
+            double bill1 = Double.valueOf(result);
             System.out.println("Your BroadBand Bill is : "+bill1);
-            System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
-            int ans1 = sc.nextInt();
-            if (ans1 == 1){
+            do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
+    	            ans = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+            
+            if (ans == 1){
             	Account account = getAccount(from);
                 if (account != null) {
                     if (account.withDraw(bill1)) {
@@ -342,15 +387,27 @@ public class Customer {
         case 3:
         	System.out.println("Please enter Pospaid Bill Id");
         	String pBill = sc.next();
-        	Random p = new Random();
-        	int low2 = 500;
-        	int high2 = 1000;
-        	int result2 = p.nextInt(high2-low2) + low2;
-            double bill2 = Double.valueOf(result2);
+        	
+        	low = 500;
+        	high= 1000;
+        	result = r.nextInt(high-low) + low;
+            double bill2 = Double.valueOf(result);
             System.out.println("Your Postpaid Bill is : "+bill2);
-            System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
-            int ans2 = sc.nextInt();
-            if (ans2 == 1){
+            do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
+    	            ans = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+            
+            if (ans == 1){
             	Account account = getAccount(from);
                     if (account != null) {
                         if (account.withDraw(bill2)) {
@@ -369,16 +426,28 @@ public class Customer {
             
             
         case 4:
-        	Random c = new Random();
-        	int low3 = 0;
-        	int high3 = 2000;
-        	int result3 = c.nextInt(high3-low3);
-            double bill3 = Double.valueOf(result3);
+        	
+        	low = 0;
+        	high= 2000;
+        	result = r.nextInt(high-low);
+            double bill3 = Double.valueOf(result);
             
             System.out.println("Your Credit Bill is : "+bill3);
-            System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
-            int ans3 = sc.nextInt();
-            if (ans3 == 1){
+            do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
+    	            ans = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+            
+            if (ans == 1){
             	Account account = getAccount(from);
                 if (account != null) {
                     if (account.withDraw(bill3)) {
@@ -397,16 +466,28 @@ public class Customer {
         case 5:
         	System.out.println("Please enter DTH Bill Id");
         	String dthBill = sc.next();
-        	Random dth = new Random();
-        	int low4 = 250;
-        	int high4 = 700;
-        	int result4 = dth.nextInt(high4-low4) + low4;
-            double bill4 = Double.valueOf(result4);
+        	
+        	low = 250;
+        	high= 700;
+        	result = r.nextInt(high-low) + low;
+            double bill4 = Double.valueOf(result);
             
             System.out.println("Your DTH Bill is : "+bill4);
-            System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
-            int ans4 = sc.nextInt();
-            if (ans4 == 1){
+            do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
+    	            ans = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+            
+            if (ans == 1){
             	Account account = getAccount(from);
                 if (account != null) {
                     if (account.withDraw(bill4)) {
@@ -432,17 +513,74 @@ public class Customer {
 	//Bookings Method
 	
 	public boolean bookings(int from) {
-		System.out.println("Choose anyone from below:\n 1:Movie Tickets \n 2.Travel Booking\n 3.Event Booking \n 4.Hotel Booking\n");
-        switch(sc.nextInt()) {
+		int ans=0;
+		int option=0;
+		int c=0;
+		boolean flag;
+		do {
+			Scanner input = new Scanner(System.in);
+			try {
+				System.out.println("Choose anyone from below:\n 1:Movie Tickets \n 2.Travel Booking\n 3.Event Booking \n 4.Hotel Booking\n");
+	            option = input.nextInt();
+				flag = true;
+			}
+			catch(InputMismatchException e){
+				System.out.println("Wrong input,Please enter only numbers");
+				flag = false;
+			}
+			
+		}while(!flag);
+        switch(option) {
         case 1:
-        	System.out.println("Select Movie:\n 1.Avengers End Game\n 2.Tenet\n 3.Wonder Woman\n 4.Joker");
-            int choice = sc.nextInt();
-            System.out.println("Enter No of Tickets");
-            int num = sc.nextInt();
+        	int num =1;
+        	int choice =0;
+        	
+        	do {
+        	do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("Select Movie:\n 1.Avengers End Game\n 2.Tenet\n 3.Wonder Woman\n 4.Joker");
+    	            choice = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+        	if(choice == 1||choice == 2||choice == 3||choice == 4) {
+        		c =1;
+        	do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("Enter No of Tickets");
+    	            num = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+            
             System.out.println("Each Ticket Fare is : 250 ");
             System.out.println("Total Fare: "+(250*num));
-            System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
-            int ans = sc.nextInt();
+            do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
+    	            ans = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+            
             if (ans == 1){
             	System.out.println("Booking Ticket...");
             	Account account = getAccount(from);
@@ -464,10 +602,31 @@ public class Customer {
             }else{
                 return false;
             }
+        	}
+        	else {
+        		System.out.println("Please enter correct choice");
+        	}
+        }while(c==0);
             
         case 2:
-        	System.out.println("\nSelect Mode of Travel: \n1.Flight \n2.Bus \n3.Train");
-        	int choice1 = sc.nextInt();
+        	int choice1=0;
+        	c=0;
+        	do {
+        	do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("\nSelect Mode of Travel: \n1.Flight \n2.Bus \n3.Train");
+    	        	choice1 = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+        	if(choice1==1||choice1==2||choice1==3) {
+        		c=1;
             System.out.println("Enter Source City:");
             String sCity = sc.next();
             System.out.println("Enter Destination City:");
@@ -480,9 +639,21 @@ public class Customer {
         	int result = r.nextInt(high-low) + low;
         	double fare = Double.valueOf(result);
             System.out.println("Your Ticket Fare is : "+fare);
-            System.out.println("Do You want to pay\n 1:Yes\n 2:No\nSelect 1 or 2");
-            int ans1 = sc.nextInt();
-            if (ans1 == 1){
+            do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
+    	            ans = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+            
+            if (ans == 1){
             	System.out.println("Booking Ticket...");
             	Account account = getAccount(from);
                 if (account != null) {
@@ -502,10 +673,31 @@ public class Customer {
             }else{
                 return false;
             }
+        	}
+        	else {
+        		System.out.println("Please enter correct choice");
+        	}
+        	}while(c==1);
             
         case 3:
-        	System.out.println("\nSelect an Event: \n1.Chainsmokers Live Concert \n2.AUS vs IND ODI-1 \n3.The Grand Carnival Exhibition");
-            int select = sc.nextInt();
+        	int select=0;
+        	c=0;
+        	do {
+            do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("\nSelect an Event: \n1.Chainsmokers Live Concert \n2.AUS vs IND ODI-1 \n3.The Grand Carnival Exhibition");
+    	            select = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+            if(select==1||select==2||select==3) {
+            	c=1;
         	Random m = new Random();
         	int low2 = 250;
         	int high2 = 700;
@@ -513,9 +705,20 @@ public class Customer {
         	double fare1 = Double.valueOf(result2);
             
             System.out.println("Your Ticket fare is : "+fare1);
-            System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
-            int ans11 = sc.nextInt();
-            if (ans11 == 1){
+            do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
+    	            ans = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+            if (ans == 1){
             	System.out.println("Booking Ticket...");
             	Account account = getAccount(from);
                 if (account != null) {
@@ -535,16 +738,50 @@ public class Customer {
             }else{
                 return false;
             }
+            }
+            else {
+        		System.out.println("Please enter correct choice");
+        	}
+        	}while(c==1);
             
         case 4:
         	System.out.println("Enter City Name");
             String city = sc.next();
-            System.out.println("Select Hotel: \n1.Novotel \n2.Taj \n3.ITC Kakatiya");
-            int opt = sc.nextInt();
+            c=0;
+            int opt =0;
+            do {
+            do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("Select Hotel: \n1.Novotel \n2.Taj \n3.ITC Kakatiya");
+    	            opt = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+            if(opt==1||opt==2||opt==3) {
+            	c=1;
             System.out.println("Enter Checkin Date");
             String data = sc.next();
-            System.out.println("Number of Days");
-            int days = sc.nextInt();
+            int days =0;
+            do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("Number of Days");
+    	            days = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+            
             Random h = new Random();
         	int low4 = 3500;
         	int high4 = 4500;
@@ -553,9 +790,21 @@ public class Customer {
             
             double tot = days * cost;
             System.out.println("Your Booking Fare: "+tot);
-            System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
-            int ans4 = sc.nextInt();
-            if (ans4 == 1){
+            do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("Do you want to pay\n 1:Yes\n 2:No\nSelect 1 or 2 only");
+    	            ans = input.nextInt();
+    				flag = true;
+    			}
+    			catch(InputMismatchException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+            
+            if (ans == 1){
             	System.out.println("Booking Hotel.....");
             	Account account = getAccount(from);
                 if (account != null) {
@@ -575,6 +824,11 @@ public class Customer {
             }else{
                 return false;
             }
+            }
+            else {
+        		System.out.println("Please enter correct choice");
+        	}
+            }while(c==1);
         
         default:
         	System.out.println("**Incorrect Selection**");
@@ -642,8 +896,10 @@ public class Customer {
 			return cin+","+fullName +","+fatherName+","+dob+","+occupation+","+phoneNumber+","+emailId+","+address+","+city+","+panNumber+","+aadharNumber+","+account1.type+","+account1.accountNo+","+account1.currentBalance+","+account2.type+","+account2.accountNo+","+account2.currentBalance+","+account3.type+","+account3.accountNo+","+account3.currentBalance+","+account3.companyName+","+account3.empId;
 
 		}
+		
 						
 	}
+	
 
 
 }

@@ -14,18 +14,15 @@ public class MainMenu {
 	static int users = 1000;
 	static int accountNos = 100000;
 	
-	//readFromFile(customers);
-	//printList(customers);
+	
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		
 		
 		File file = new File("CustomerData.txt");
 		if(file.exists()) { // if function is used to check does file already exits or not
 			
 			//if file exits then data present in the file is stored into array list
-			
 			
 			FileInputStream cusfile=new FileInputStream("CustomerData.txt");
 			BufferedReader br=new BufferedReader(new InputStreamReader(cusfile));
@@ -98,17 +95,32 @@ public class MainMenu {
 							if(fields.length == 16){
 								c = new Customer(cin,fullName,fatherName,dob,occupation,phoneNumber,emailId,address,city,panNumber,aadharNumber);
 								c.account3 = new SalaryAccount(fields[12],Double.parseDouble(fields[13]),fields[14],fields[15]);
-								
+								accountNos = Integer.valueOf(fields[12]);
 							}
 							
 						}		
 				}
 			    
 			    customers.add(c);
-				users = Integer.valueOf(cin);
 				
 			}
 		}
+		File f = new File("CIN and Account Numbers.txt");
+		if(f.exists()) {
+			FileInputStream fFile=new FileInputStream("CIN and Account Numbers.txt");
+			BufferedReader br=new BufferedReader(new InputStreamReader(fFile));
+			String line;
+			while((line=br.readLine())!=null) {
+				String fields[]=line.split(",");
+				String userNo = fields[0];
+				String AccNo = fields[1];
+				users = Integer.valueOf(userNo);
+				accountNos = Integer.valueOf(AccNo);
+				
+			}
+			
+		}
+		
 		//---------------------------------------------Program Starts from Here-----------------------------------
 		
 		
@@ -116,8 +128,25 @@ public class MainMenu {
 		do{
 		    powerOff = 1;
 		    System.out.println("***************--------   Helloo User Welcome to Indian Bank  ---------**************");
-		    System.out.println("Choose anyone from below\n 1:New Customer\n 2:Existing Customer\n 3:Exit Bank Application\nSelect 1 or 2 or 3 only");
-		    int choice = sc.nextInt();
+		    int choice=0;
+		    
+		    boolean flag;
+    		do {
+    			Scanner input = new Scanner(System.in);
+    			try {
+    				System.out.println("Choose anyone from below\n 1:New Customer\n 2:Existing Customer\n 3:Exit Bank Application\nSelect 1 or 2 or 3 only");
+    			    String ans = sc.nextLine();
+    			    choice = Integer.parseInt(ans);
+    				flag = true;
+    			}
+    			catch(NumberFormatException e){
+    				System.out.println("Wrong input,Please enter only numbers");
+    				flag = false;
+    			}
+    			
+    		}while(!flag);
+    		
+		    
 		    if (choice == 1){
 		    	
 		    	//Registering new customers
@@ -157,7 +186,6 @@ public class MainMenu {
 		
 		writingToFile(customers); // Calling method to write data into file
 		
-		
 	}
 	
 	// this method is used to check whether customer registered with bank or not using cin
@@ -173,8 +201,22 @@ public class MainMenu {
 	// Bank Main Menu
 	
 	public static void mainMenu(Customer cus) {
-		System.out.println("\nPlease Select from below to continue\n 1:Create another Account type for same User\n 2:Banking\n 3:Edit your Details\n 4:Logout\nSelect 1 or 2 or 3 or 4 only");
-	    int choice = sc.nextInt();
+		int choice=0;
+	    boolean flag;
+		do {
+			Scanner input = new Scanner(System.in);
+			try {
+				System.out.println("\nPlease Select from below to continue\n 1:Create another Account type for same User\n 2:Banking\n 3:Edit your Details\n 4:Logout\nSelect 1 or 2 or 3 or 4 only");
+			    choice = input.nextInt();
+				flag = true;
+			}
+			catch(InputMismatchException e){
+				System.out.println("Wrong input,Please enter only numbers");
+				flag = false;
+			}
+			
+		}while(!flag);
+		
 	    switch (choice){
 	        case 1:
 	        	// create another account type for same user
@@ -186,20 +228,50 @@ public class MainMenu {
 	            else{
 	                do{
 	                    rep = 0;
-	                    System.out.println("Select Account Type\n"+
-	                        "1.Savings:\n"+
-	                            "\t Featues: -> Basic Account with minimum Balalce of 0 Rupees.\n"+
-	                                    "\t\t -> Maximum withdrawl and deposit limit of 100000 Rupees.\n"+
-	                        "2.Savings Pro Account:\n"+
-	                            "\tFeatues: -> Pro Account with minimum Balalce of 2000 Rupees.\n"+
-	                                     "\t\t -> Maximum withdrawl and deposit limit of 200000 Rupees.\n"+
-	                        "3.Salary Account:\n"+
-	                           "\t Features: -> For Salaried people no minimum balance\n"+
-	                                      "\t\t -> Maximum withdrawl and deposit limit of 150000 Rupees.\n"+
-	                       "Reply with 1 or 2 or 3 only.");
-	                    int account = sc.nextInt();
-	                    System.out.println("Enter Initial Deposit Amount");
-	                    double amount = sc.nextDouble();
+	                    
+	                    int account=0;
+	                    double amount=0;
+	            	    boolean f = true;
+	            		do {
+	            			Scanner input = new Scanner(System.in);
+	            			try {
+	            				System.out.println("Select Account Type\n"+
+	        	                        "1.Savings:\n"+
+	        	                            "\t Featues: -> Basic Account with minimum Balalce of 0 Rupees.\n"+
+	        	                                    "\t\t -> Maximum withdrawl and deposit limit of 100000 Rupees.\n"+
+	        	                        "2.Savings Pro Account:\n"+
+	        	                            "\tFeatues: -> Pro Account with minimum Balalce of 2000 Rupees.\n"+
+	        	                                     "\t\t -> Maximum withdrawl and deposit limit of 200000 Rupees.\n"+
+	        	                        "3.Salary Account:\n"+
+	        	                           "\t Features: -> For Salaried people no minimum balance\n"+
+	        	                                      "\t\t -> Maximum withdrawl and deposit limit of 150000 Rupees.\n"+
+	        	                       "Reply with 1 or 2 or 3 only.");
+	        	                    account = input.nextInt();
+	        	                    
+	            				f = true;
+	            			}
+	            			catch(InputMismatchException e){
+	            				System.out.println("Wrong input,Please enter only numbers");
+	            				f = false;
+	            			}
+	            			
+	            		}while(!f);
+	            		
+	            		
+	            		do {
+	            			Scanner input = new Scanner(System.in);
+	            			try {
+	            				System.out.println("Enter Initial Deposit Amount");
+        	                    amount = input.nextDouble();
+	            				f = true;
+	            			}
+	            			catch(InputMismatchException e){
+	            				System.out.println("Wrong input,Please enter only numbers");
+	            				f = false;
+	            			}
+	            			
+	            		}while(!f);
+	            		
 	                    accountNos += 1;
 	                    String accountNo = String.valueOf(accountNos);
 	                    if (cus.createAccount(account,accountNo, amount) == false ){ //calling creating account method
@@ -237,7 +309,7 @@ public class MainMenu {
 		users += 1;
 		
 		String cin = String.valueOf(users);
-		sc.nextLine();	    
+			    
 		System.out.println("Enter the Full Name");
 		String fullname = sc.nextLine();
 			    
@@ -245,30 +317,33 @@ public class MainMenu {
 		String fname = sc.nextLine();
 			    
 		System.out.println("Enter the Date of Birth(DD-MM-YYYY)");
-		String Dob = sc.next();
+		String Dob = sc.nextLine();
 		
-		sc.nextLine();	    
+			    
 		System.out.println("Enter the occupation");
 		String occupation = sc.nextLine();
+		
 		long phNo = 1234567890;
+		
 		boolean flag;
 		do {
 			Scanner input = new Scanner(System.in);
 			try {
 				System.out.println("Enter the phone number");
-				phNo = input.nextLong();
+				String p = sc.nextLine();
+				phNo = Long.parseLong(p);
 				flag = true;
 			}
-			catch(InputMismatchException e){
-				System.out.println("Please enter only numbers");
+			catch(NumberFormatException e){
+				System.out.println("Wrong input,Please enter only numbers");
 				flag = false;
 			}
 			
 		}while(!flag);
 		
 		System.out.println("Enter the Email ID");
-		String email = sc.next();
-		sc.nextLine();	    
+		String email = sc.nextLine();
+			    
 		System.out.println("Enter the address");
 		String address = sc.nextLine();
 		
@@ -276,10 +351,10 @@ public class MainMenu {
 		String city = sc.nextLine();
 		
 		System.out.println("Enter the Pan Number");
-		String panNo = sc.next();
-			    
+		String panNo = sc.nextLine();
+		   
 		System.out.println("Enter the aadharNumber");
-		String aadhar = sc.next();
+		String aadhar = sc.nextLine();
 		Customer c = new Customer(cin,fullname,fname,Dob,occupation,phNo,email,address,city,panNo,aadhar);
 			    
 		customers.add(c);
@@ -296,20 +371,50 @@ public class MainMenu {
 				
 			    do{			    	
 			        rep = 0;
-			        System.out.println("Select Account Type\n"+
-	                        "1.Savings:\n"+
-	                            "\t Featues: -> Basic Account with minimum Balalce of 0 Rupees.\n"+
-	                                    " -> Maximum withdrawl and deposit limit of 100000 Rupees.\n"+
-	                        "2.Savings Pro Account:\n"+
-	                            "\tFeatues: -> Pro Account with minimum Balalce of 2000 Rupees.\n"+
-	                                     "-> Maximum withdrawl and deposit limit of 200000 Rupees.\n"+
-	                        "3.Salary Account:\n"+
-	                           "\t Features: -> For Salaried people no minimum balance\n"+
-	                                      "-> Maximum withdrawl and deposit limit of 150000 Rupees.\n"+
-	                       "Reply with 1 or 2 or 3 only.");
-			                int account = sc.nextInt();
-			                System.out.println("Enter Initial Deposit Amount");
-			                double amount = sc.nextDouble();
+			        int account=0;
+                    double amount=0;
+            	    boolean f = true;
+            		do {
+            			Scanner input = new Scanner(System.in);
+            			try {
+            				System.out.println("Select Account Type\n"+
+        	                        "1.Savings:\n"+
+        	                            "\t Featues: -> Basic Account with minimum Balalce of 0 Rupees.\n"+
+        	                                    "\t\t -> Maximum withdrawl and deposit limit of 100000 Rupees.\n"+
+        	                        "2.Savings Pro Account:\n"+
+        	                            "\tFeatues: -> Pro Account with minimum Balalce of 2000 Rupees.\n"+
+        	                                     "\t\t -> Maximum withdrawl and deposit limit of 200000 Rupees.\n"+
+        	                        "3.Salary Account:\n"+
+        	                           "\t Features: -> For Salaried people no minimum balance\n"+
+        	                                      "\t\t -> Maximum withdrawl and deposit limit of 150000 Rupees.\n"+
+        	                       "Reply with 1 or 2 or 3 only.");
+        	                    account = input.nextInt();
+        	                    
+            				f = true;
+            			}
+            			catch(InputMismatchException e){
+            				System.out.println("Wrong input,Please enter only numbers");
+            				f = false;
+            			}
+            			
+            		}while(!f);
+            		
+            		
+            		do {
+            			Scanner input = new Scanner(System.in);
+            			try {
+            				System.out.println("Enter Initial Deposit Amount");
+    	                    amount = input.nextDouble();
+            				f = true;
+            			}
+            			catch(InputMismatchException e){
+            				System.out.println("Wrong input,Please enter only numbers");
+            				f = false;
+            			}
+            			
+            		}while(!f);
+			        
+			                
 			                accountNos += 1;
 			                String accountNo = String.valueOf(accountNos);
 			                if (cus.createAccount(account, accountNo, amount) == false) {
@@ -329,18 +434,55 @@ public class MainMenu {
 		int more = 1;
 		
 		System.out.println("--------------------***************--------------------------");
-		System.out.println("\nPlease Select from below Transactions:\n 1:Check Balance\n 2.Deposit Money \n 3.Withdraw Money \n 4.Transfer Money\n 5.Pay Bills\n 6.Bookings\n 7.Exit\n");
-		int transaction = sc.nextInt();
+		int transaction=0;
+	    boolean flag;
+		do {
+			Scanner input = new Scanner(System.in);
+			try {
+				System.out.println("\nPlease Select from below Transactions:\n 1:Check Balance\n 2.Deposit Money \n 3.Withdraw Money \n 4.Transfer Money\n 5.Pay Bills\n 6.Bookings\n 7.Exit\n");
+				transaction = input.nextInt();
+				flag = true;
+			}
+			catch(InputMismatchException e){
+				System.out.println("Wrong input,Please enter only numbers");
+				flag = false;
+			}
+			
+		}while(!flag);
+		
 		switch (transaction){
 		
 		case 1:
 			//Check Balance
 			
 			if (cus.getUserAccounts()){
+				int again = 0;
+			    do {
+			    again = 0;
+			    int account=0;
+			    do {
+					Scanner input = new Scanner(System.in);
+					try {
+						System.out.println("Please Select Account type to Proceed");
+					    account = input.nextInt();
+						flag = true;
+					}
+					catch(InputMismatchException e){
+						System.out.println("Wrong input,Please enter only numbers");
+						flag = false;
+					}
+					
+				}while(!flag);
+			    
+			    if(cus.getAccount(account)!=null) {
 				
-				System.out.println("Please Select Account type to Proceed");
-			    int account = sc.nextInt();
 			    cus.checkBalance(account);
+			    }
+			    else {
+		            System.out.println("**Invalid account choice,Please Enter Correct Account type to Proceed**");
+			    	again =1;
+			    }
+			    }while(again == 1);
 			 }
 			break;
 			            
@@ -348,29 +490,103 @@ public class MainMenu {
 			//Deposit Money
 			
 			if (cus.getUserAccounts()){
+				int again = 0;
+			    do {
+			    	again = 0;
+			    	int account=0;
+				    do {
+						Scanner input = new Scanner(System.in);
+						try {
+							System.out.println("Please Select Account type to Proceed");
+						    account = input.nextInt();
+							flag = true;
+						}
+						catch(InputMismatchException e){
+							System.out.println("Wrong input,Please enter only numbers");
+							flag = false;
+						}
+						
+					}while(!flag);
 				
-				System.out.println("Please Select Account type to Proceed");
-			    int account =sc.nextInt();
-				System.out.println("Enter Amount");
-			    double amount = sc.nextDouble();
+			    
+			    if(cus.getAccount(account)!=null) {
+			    double amount =0;
+			    //boolean flag;
+	    		do {
+	    			Scanner input = new Scanner(System.in);
+	    			try {
+	    				System.out.println("Enter Amount");
+	    			    amount = input.nextDouble();
+	    				flag = true;
+	    			}
+	    			catch(InputMismatchException e){
+	    				System.out.println("Wrong input,Please enter only numbers");
+	    				flag = false;
+	    			}
+	    			
+	    		}while(!flag);
+				
 			    if (cus.depositMoney(account,amount) == false){
 			    	System.out.println("Money Deposit Unsuccessfull");
 			    }
+			    }
+			    else {
+		            System.out.println("**Invalid account choice,Please Enter Correct Account type to Proceed**");
+			    	again = 1;
+			    }
+			    }while(again ==1);
 			 }
 			break;
 		case 3:
 			//Withdraw money
 			
 			   if (cus.getUserAccounts()){
-				   
-				   System.out.println("Please Select Account type to Proceed");
-			       int account =sc.nextInt();
-			       System.out.println("Enter Amount");
-			       double amount =sc.nextDouble();
+				   int again = 0;
+				    do {
+				    	again = 0;
+				    	int account=0;
+					    do {
+							Scanner input = new Scanner(System.in);
+							try {
+								System.out.println("Please Select Account type to Proceed");
+							    account = input.nextInt();
+								flag = true;
+							}
+							catch(InputMismatchException e){
+								System.out.println("Wrong input,Please enter only numbers");
+								flag = false;
+							}
+							
+						}while(!flag);
+				    
+				    if(cus.getAccount(account)!=null) {
+					
+			       double amount =0;
+				    //boolean flag;
+		    		do {
+		    			Scanner input = new Scanner(System.in);
+		    			try {
+		    				System.out.println("Enter Amount");
+		    			    amount = input.nextDouble();
+		    				flag = true;
+		    			}
+		    			catch(InputMismatchException e){
+		    				System.out.println("Wrong input,Please enter only numbers");
+		    				flag = false;
+		    			}
+		    			
+		    		}while(!flag);
+			       
 			       if (cus.withdrawMoney(account,amount) == false){
 			    	   
 			    	   System.out.println("Money Withdrawl Unsuccessfull");
 			       }
+				    }
+				    else {
+				    	System.out.println("**Invalid account choice,Please Enter Correct Account type to Proceed**");
+				    	again = 1;
+				    }
+				    }while(again ==1);
 			     }
 			   break;
 		  case 4:
@@ -378,14 +594,30 @@ public class MainMenu {
 			  
 			    if (cus.getUserAccounts()){
 			    	
+			    	if((cus.account1 !=null&&cus.account2 !=null)||(cus.account1 !=null&&cus.account3 !=null)||(cus.account2 !=null&&cus.account3 !=null))
+			    	{
 			    	System.out.println("Select From Account type");
 			        int fromAccount = sc.nextInt();
 			        System.out.println("Select To Account type");
 			        int toAccount =sc.nextInt();
 			        if (fromAccount != toAccount){
 			        	
-			        	System.out.println("Enter Amount");
-			            double amount = sc.nextDouble();
+			        	double amount =0;
+					    //boolean flag;
+			    		do {
+			    			Scanner input = new Scanner(System.in);
+			    			try {
+			    				System.out.println("Enter Amount");
+			    			    amount = input.nextDouble();
+			    				flag = true;
+			    			}
+			    			catch(InputMismatchException e){
+			    				System.out.println("Wrong input,Please enter only numbers");
+			    				flag = false;
+			    			}
+			    			
+			    		}while(!flag);
+			        	
 			            if (cus.transfermoney(fromAccount,toAccount,amount) == false){
 			            	
 			            	System.out.println("Money Transfer Unsuccessfull");
@@ -397,6 +629,10 @@ public class MainMenu {
 			        }
 			                
 			       }
+			    	else {
+			    		System.out.println("Customer don't have two accounts to perform transfer operation");
+			    	}
+			    }
 			    break;
 		case 5:
 			//Pay Bills
@@ -404,18 +640,53 @@ public class MainMenu {
 			if (cus.getUserAccounts()){
 				
 			    int rep;
-			    System.out.println("Please Select Account type to Proceed");
-			    int account = sc.nextInt();
+			    int again = 0;
+			    do {
+			    	again = 0;
+			    	int account=0;
+				    do {
+						Scanner input = new Scanner(System.in);
+						try {
+							System.out.println("Please Select Account type to Proceed");
+						    account = input.nextInt();
+							flag = true;
+						}
+						catch(InputMismatchException e){
+							System.out.println("Wrong input,Please enter only numbers");
+							flag = false;
+						}
+						
+					}while(!flag);
+			    
+			    if(cus.getAccount(account)!=null) {
+			    	
 			    do{			    	
 			        rep = 0;
 			       if (cus.paybills(account) == false){
 			        	
 			            rep = 1;
 			        }
+			       do {
+		    			Scanner input = new Scanner(System.in);
+		    			try {
+		    				System.out.println("\nDo you want to pay more Bills\n 1:Yes\n 2:No\nSelect 1 or 2");
+					        rep = input.nextInt();
+		    				flag = true;
+		    			}
+		    			catch(InputMismatchException e){
+		    				System.out.println("Wrong input,Please enter only numbers");
+		    				flag = false;
+		    			}
+		    			
+		    		}while(!flag);
 			        
-			        System.out.println("\nDo you want to pay more Bills\n 1:Yes\n 2:No\nSelect 1 or 2");
-			        rep = sc.nextInt();
 			      }while (rep == 1);
+			    }
+			    else {
+			    	System.out.println("**Invalid account choice,Please Enter Correct Account type to Proceed**");
+			    	again =1;
+			    }
+			    }while(again == 1);
 			    }
 			break;
 			case 6:
@@ -425,8 +696,25 @@ public class MainMenu {
 			    if (cus.getUserAccounts()){
 			    	
 			        int rep;
-			        System.out.println("Please Select Account type to Proceed");
-			        int account = sc.nextInt();
+			        int again = 0;
+				    do {
+				    	again = 0;
+				    	int account=0;
+					    do {
+							Scanner input = new Scanner(System.in);
+							try {
+								System.out.println("Please Select Account type to Proceed");
+							    account = input.nextInt();
+								flag = true;
+							}
+							catch(InputMismatchException e){
+								System.out.println("Wrong input,Please enter only numbers");
+								flag = false;
+							}
+							
+						}while(!flag);
+			        
+			        if(cus.getAccount(account)!=null) {
 			        do{
 			        	
 			            rep = 0;
@@ -437,6 +725,12 @@ public class MainMenu {
 			            System.out.println("\nDo you want to do Book more\n 1:Yes\n 2:No\nSelect 1 or 2");
 			             rep = sc.nextInt();
 			          }while (rep == 1);
+			        }
+			        else {
+				    	System.out.println("**Invalid account choice,Please Enter Correct Account type to Proceed**");
+				    	again =1;
+			        }
+				    }while(again == 1);
 			       }
 			    break;
 			   case 7:
@@ -452,8 +746,21 @@ public class MainMenu {
 			    }
 			    
 			    if (more != 2) {
-			    	System.out.println("\nDo you want to do more transactions\n 1.Yes\n 2.No\nReply with 1 or 2");
-			        int repe = sc.nextInt();
+			    	int repe=0;
+				    do {
+						Scanner input = new Scanner(System.in);
+						try {
+							System.out.println("\nDo you want to do more transactions\n 1.Yes\n 2.No\nReply with 1 or 2");
+					        repe = input.nextInt();
+							flag = true;
+						}
+						catch(InputMismatchException e){
+							System.out.println("Wrong input,Please enter only numbers");
+							flag = false;
+						}
+						
+					}while(!flag);
+			    	
 			        if (repe == 1) {
 			            banking(cus);
 			        }else{
@@ -469,24 +776,40 @@ public class MainMenu {
 	//Method to edit details of customer
 	
 	public static void editdetails(Customer cus) {
-		cus.getData();
+		
 	    int rep;
-	    
+	    int choice =0;
+	    boolean flag;
 	    do {
+	    	cus.getData();
 	        rep = 0;
-	        System.out.println("Please Select Data to Update\nReply with Numbers from 1 to 10 only");
-	        int choice = sc.nextInt();
+	        do {
+				Scanner input = new Scanner(System.in);
+				try {
+					System.out.println("Please Select Data to Update\nReply with Numbers from 1 to 10 only");
+			        choice = input.nextInt();
+					flag = true;
+				}
+				catch(InputMismatchException e){
+					System.out.println("Wrong input,Please enter only numbers");
+					flag = false;
+				}
+				
+			}while(!flag);
+	        
 	        switch (choice) {
 	        case 1:
+	        	sc.nextLine();
 	        	System.out.println("Please Enter Full Name to Update");
-	            cus.fullName = sc.next();
+	            cus.fullName = sc.nextLine();
 	            System.out.println("\nDo you want to update more reply\n 1.Yes\n 2.No\nSelect 1 or 2 only");
 	            rep = sc.nextInt();
 	            break;
 	            
 	        case 2:
+	        	sc.nextLine();
 	        	System.out.println("Please Enter Father Name to Update");
-	            cus.fatherName = sc.next();
+	            cus.fatherName = sc.nextLine();
 	            System.out.println("\nDo you want to update more reply\n 1.Yes\n 2.No\nSelect 1 or 2 only");
 	            rep = sc.nextInt();
 	            break;
@@ -499,15 +822,31 @@ public class MainMenu {
 	            break;
 	            
 	        case 4:
+	        	sc.nextLine();
 	        	System.out.println("Please Enter Occupation to Update");
-	            cus.occupation = sc.next();
+	            cus.occupation = sc.nextLine();
 	            System.out.println("\nDo you want to update more reply\n 1.Yes\n 2.No\nSelect 1 or 2 only");
 	            rep = sc.nextInt();
 	            break;
 	            
 	        case 5:
 	        	System.out.println("Please Enter Phone Number to Update");
-	            cus.phoneNumber = sc.nextInt();
+	        	
+	    		
+	    		do {
+	    			Scanner input = new Scanner(System.in);
+	    			try {
+	    				System.out.println("Enter the phone number");
+	    				cus.phoneNumber = input.nextLong();
+	    				flag = true;
+	    			}
+	    			catch(InputMismatchException e){
+	    				System.out.println("Wrong input,Please enter only numbers");
+	    				flag = false;
+	    			}
+	    			
+	    		}while(!flag);
+	            
 	            System.out.println("\nDo you want to update more reply\n 1.Yes\n 2.No\nSelect 1 or 2 only");
 	            rep = sc.nextInt();
 	            break;
@@ -520,15 +859,17 @@ public class MainMenu {
 	            break;
 	            
 	        case 7:
+	        	sc.nextLine();
 	        	System.out.println("Please Enter Address to Update");
-	            cus.address = sc.next();
+	            cus.address = sc.nextLine();
 	            System.out.println("\nDo you want to update more reply\n 1.Yes\n 2.No\nSelect 1 or 2 only");
 	            rep = sc.nextInt();
 	            break;
 	            
 	        case 8:
+	        	sc.nextLine();
 	        	System.out.println("Please Enter City to Update");
-	            cus.city = sc.next();
+	            cus.city = sc.nextLine();
 	            System.out.println("\nDo you want to update more reply\n 1.Yes\n 2.No\nSelect 1 or 2 only");
 	            rep = sc.nextInt();
 	            break;
@@ -564,6 +905,7 @@ public class MainMenu {
 	//Method to write customers data into text file
 	
 	public static void writingToFile(ArrayList<Customer> customers) throws IOException {
+		//writing data into customer text file 
 		File file = new File("CustomerData.txt");
 		
 		//Here if condition checks whether text file exits or not
@@ -590,6 +932,30 @@ public class MainMenu {
 			}
 			pw.close();
 		}
+		//writing customer identification number and account numbers into CIN and Account Numbers text file
+		File f = new File("CIN and Account Numbers.txt");
+		if(file.exists()) {
+			
+			//if text file already exits then new data will overwrite the old text file
+			
+			Writer data = new FileWriter("CIN and Account Numbers.txt",false);
+			PrintWriter pw=new PrintWriter(data);
+			
+			pw.println(users+","+accountNos);
+			
+			pw.close();
+		}
+		else {
+			
+			// else new text file will be created and data will add to new text file
+			
+			FileWriter data = new FileWriter("CIN and Account Numbers.txt",true);
+			PrintWriter pw=new PrintWriter(data);
+			
+			pw.println(users+","+accountNos);
+			pw.close();
+		}
+		
 		
 		
 	}
