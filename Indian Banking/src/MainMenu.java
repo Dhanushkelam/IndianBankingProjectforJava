@@ -323,7 +323,7 @@ public class MainMenu {
 	
 	public static void adddetails() throws IOException {
 		users += 1;
-		
+		Scanner sc = new Scanner(System.in);
 		String cin = String.valueOf(users);
 			    
 		System.out.println("Enter the Full Name");
@@ -849,6 +849,7 @@ public class MainMenu {
 		
 	    int rep;
 	    int choice =0;
+	    
 	    boolean flag;
 	    do {
 	    	cus.getData();
@@ -900,13 +901,12 @@ public class MainMenu {
 	            break;
 	            
 	        case 5:
-	        	System.out.println("Please Enter Phone Number to Update");
 	        	
 	    		
 	    		do {
 	    			Scanner input = new Scanner(System.in);
 	    			try {
-	    				System.out.println("Enter the phone number");
+	    				System.out.println("Please Enter Phone Number to Update");
 	    				cus.phoneNumber = input.nextLong();
 	    				flag = true;
 	    			}

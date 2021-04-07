@@ -1,0 +1,2 @@
+1001,Manikanta G,Dhanush,13-01-1996,Business Man,8989898989,mani@gmail.com,2-34 near Ramalayam,Rajahmundry,ASDFG4567H,1234 1234 1234,Savings Account,100003,1549.0,Savings Pro Account,100002,3449.0,Salary Account,100004,5000.0,XYZ,XYZ123
+1002,Sekhar Anaparthi,RAma RAo,13-01-1996,Business,7878787878,shhekar@gmail.com,3-67 Katheru,Rajahmundry,ASDFR3456H,6787 5675 2342,Savings Account,100005,1000.0
