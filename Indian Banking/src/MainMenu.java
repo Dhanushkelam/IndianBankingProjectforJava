@@ -135,11 +135,12 @@ public class MainMenu {
     			Scanner input = new Scanner(System.in);
     			try {
     				System.out.println("Choose anyone from below\n 1:New Customer\n 2:Existing Customer\n 3:Exit Bank Application\nSelect 1 or 2 or 3 only");
-    			    String ans = sc.nextLine();
+    			    String ans = input.nextLine();
     			    choice = Integer.parseInt(ans);
     				flag = true;
     			}
     			catch(NumberFormatException e){
+    				System.out.println("Hiiii");
     				System.out.println("Wrong input,Please enter only numbers");
     				flag = false;
     			}
@@ -207,10 +208,11 @@ public class MainMenu {
 			Scanner input = new Scanner(System.in);
 			try {
 				System.out.println("\nPlease Select from below to continue\n 1:Create another Account type for same User\n 2:Banking\n 3:Edit your Details\n 4:Logout\nSelect 1 or 2 or 3 or 4 only");
-			    choice = input.nextInt();
+			    String g = input.nextLine();
+			    choice = Integer.parseInt(g);
 				flag = true;
 			}
-			catch(InputMismatchException e){
+			catch(NumberFormatException e){
 				System.out.println("Wrong input,Please enter only numbers");
 				flag = false;
 			}
@@ -298,7 +300,7 @@ public class MainMenu {
 	        	break;
 	        default:
 	        	System.out.println("\nPlease Enter Correct Choice");
-	            mainMenu(cus);
+	            mainMenu(cus);         
 	    }
 		
 	}
@@ -596,10 +598,62 @@ public class MainMenu {
 			    	
 			    	if((cus.account1 !=null&&cus.account2 !=null)||(cus.account1 !=null&&cus.account3 !=null)||(cus.account2 !=null&&cus.account3 !=null))
 			    	{
-			    	System.out.println("Select From Account type");
-			        int fromAccount = sc.nextInt();
-			        System.out.println("Select To Account type");
-			        int toAccount =sc.nextInt();
+			    		int fromAccount=0;
+			    		int toAccount=0;
+			    		int r=0;
+			    		do {
+			    			Scanner input = new Scanner(System.in);
+			    			try {
+			    				do {
+			    				System.out.println("Select From Account type");
+						        fromAccount = input.nextInt();
+						        if(fromAccount ==1||fromAccount ==2||fromAccount ==3) {
+						        	r=1;
+						        	flag = true;
+						        }
+						        else {
+						        	System.out.println("Invalid account type,please accounts you have");
+						        	r=0;
+						        }
+						        
+			    				}while(r==0);
+			    				
+			    			}
+			    			catch(InputMismatchException e){
+			    				System.out.println("Wrong input,Please enter only numbers");
+			    				flag = false;
+			    			}
+			    			
+			    		}while(!flag);
+			    		
+			    		r=0;	
+			    		
+			    		do {
+			    			Scanner input = new Scanner(System.in);
+			    			try {
+			    				do {
+			    				System.out.println("Select To Account type");
+						        toAccount =input.nextInt();
+						        if(toAccount==1||toAccount==2||toAccount==3) {
+						        	r=1;
+						        	flag = true;
+						        }
+						        else {
+						        	System.out.println("Invalid account type,please accounts you have");
+						        	r=0;
+						        }
+						        
+			    				}while(r==0);
+			    				//flag = true;
+			    			}
+			    			catch(InputMismatchException e){
+			    				System.out.println("Wrong input,Please enter only numbers");
+			    				flag = false;
+			    			}
+			    			
+			    		}while(!flag);
+			    	//if((fromAccount ==1||fromAccount ==2||fromAccount ==3)&&(toAccount==1||toAccount==2||toAccount==3))
+			        
 			        if (fromAccount != toAccount){
 			        	
 			        	double amount =0;
@@ -627,6 +681,7 @@ public class MainMenu {
 			        	
 			        	System.out.println("**The Sender and Beneficiary Accounts are same**");
 			        }
+			    	
 			                
 			       }
 			    	else {
