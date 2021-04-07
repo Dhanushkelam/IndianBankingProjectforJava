@@ -23,6 +23,7 @@ public class MainMenu {
 		if(file.exists()) { // if function is used to check does file already exits or not
 			
 			//if file exits then data present in the file is stored into array list
+			System.out.println("Fetching data from text file.............");
 			
 			FileInputStream cusfile=new FileInputStream("CustomerData.txt");
 			BufferedReader br=new BufferedReader(new InputStreamReader(cusfile));
@@ -104,6 +105,7 @@ public class MainMenu {
 			    customers.add(c);
 				
 			}
+			System.out.println("Data is fetched from text file and transferred to array list.");
 		}
 		File f = new File("CIN and Account Numbers.txt");
 		if(f.exists()) {
@@ -177,7 +179,7 @@ public class MainMenu {
 		    	
 		    	// Exit from bank
 		    	
-		    	System.out.println("Getting Out of Application...\nHave a good day...");
+		    	
 		        powerOff = 0;
 		    }
 		    else {
@@ -185,7 +187,12 @@ public class MainMenu {
 		    }
 		}while (powerOff == 1);
 		
+		System.out.println("Customer data is transferring from array list to text file............");
+		
 		writingToFile(customers); // Calling method to write data into file
+		System.out.println("Data tranfer completed");
+		System.out.println("Getting Out of Application...\nHave a good day...");
+		
 		
 	}
 	
@@ -347,6 +354,7 @@ public class MainMenu {
 		String email = sc.nextLine();
 			    
 		System.out.println("Enter the address");
+		System.out.println("Don't give comma's");
 		String address = sc.nextLine();
 		
 		System.out.println("Enter the City Name");
@@ -916,6 +924,7 @@ public class MainMenu {
 	        case 7:
 	        	sc.nextLine();
 	        	System.out.println("Please Enter Address to Update");
+	        	System.out.println("Don't give comma's");
 	            cus.address = sc.nextLine();
 	            System.out.println("\nDo you want to update more reply\n 1.Yes\n 2.No\nSelect 1 or 2 only");
 	            rep = sc.nextInt();

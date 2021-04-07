@@ -261,7 +261,7 @@ public class Customer {
 	                check = false;
 	            } 
 	            if (check == true){
-	                //Account dAccount = getAccount(to);
+	                
 	                if (dAccount != null){
 	                    dAccount.currentBalance += amount;
 	                    System.out.println("Current Balance in "+(dAccount.type)+": "+(dAccount.currentBalance)+"\n");
