@@ -20,10 +20,11 @@ public class MainMenu {
 		// TODO Auto-generated method stub
 		
 		File file = new File("CustomerData.txt");
+		System.out.println("Fetching data from text file.............");
 		if(file.exists()) { // if function is used to check does file already exits or not
 			
 			//if file exits then data present in the file is stored into array list
-			System.out.println("Fetching data from text file.............");
+			
 			
 			FileInputStream cusfile=new FileInputStream("CustomerData.txt");
 			BufferedReader br=new BufferedReader(new InputStreamReader(cusfile));
@@ -107,6 +108,10 @@ public class MainMenu {
 			}
 			System.out.println("Data is fetched from text file and transferred to array list.");
 		}
+		else {
+			System.out.println("No text file exists because no customer registered with bank");
+		}
+		
 		File f = new File("CIN and Account Numbers.txt");
 		if(f.exists()) {
 			FileInputStream fFile=new FileInputStream("CIN and Account Numbers.txt");
@@ -122,6 +127,8 @@ public class MainMenu {
 			}
 			
 		}
+		
+		
 		
 		//---------------------------------------------Program Starts from Here-----------------------------------
 		
